@@ -17,13 +17,13 @@
 - 수정이 완료된 코멘트에는 `Resolve conversation` 버튼을 눌러주세요.
 
 ## 필수 구현 테이블
-		- categories
-		- drinks
-		- drink_images
-		- allergies
-		- drink-allergies
-		- nutrition
-		- users (사용자)
+- categories
+- drinks
+- drink_images
+- allergies
+- drink-allergies
+- nutrition
+- users (사용자)
 
 ## 추가 구현 테이블
-    - favorite_drinks (유저가 좋아요를 누르면, 해당 상품과 유저가 저장됩니다.)
+- favorite_drinks (유저가 좋아요를 누르면, 해당 상품과 유저가 저장됩니다.)
