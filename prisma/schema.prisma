@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -10,4 +10,67 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model categories {
+  id         Int       @id @default(autoincrement())
+  name       String
+  created_at DateTime? @default(now())
+  drinks     drinks[]
+}
 
+model drinks {
+  id              Int               @id @default(autoincrement())
+  korean_name     String
+  english_name    String?
+  is_new          Boolean
+  category_id     Int
+  created_at      DateTime?         @default(now())
+  categories      categories        @relation(fields: [category_id], references: [id])
+  drink_images    drink_images[]
+  drink_allergies drink_allergies[]
+  nutritions      nutritions[]
+}
+
+model drink_images {
+  id         Int       @id @default(autoincrement())
+  image_url  String
+  drink_id   Int
+  created_at DateTime? @default(now())
+  drinks     drinks    @relation(fields: [drink_id], references: [id])
+}
+
+model allergies {
+  id              Int               @id @default(autoincrement())
+  name            String
+  created_at      DateTime?         @default(now())
+  drink_allergies drink_allergies[]
+}
+
+model drink_allergies {
+  id         Int       @id @default(autoincrement())
+  drink_id   Int
+  allergy_id Int
+  created_at DateTime? @default(now())
+  drinks     drinks    @relation(fields: [drink_id], references: [id])
+  allergies  allergies @relation(fields: [allergy_id], references: [id])
+}
+
+model nutritions {
+  id         Int       @id @default(autoincrement())
+  kcal       String?
+  sodium     String?
+  fat        String?
+  protein    String?
+  sugars     String?
+  caffeine   String?
+  drink_id   Int
+  created_at DateTime? @default(now())
+  drinks     drinks    @relation(fields: [drink_id], references: [id])
+}
+
+model users {
+  id         Int       @id @default(autoincrement())
+  email      String
+  password   String
+  name       String
+  created_at DateTime? @default(now())
+}
