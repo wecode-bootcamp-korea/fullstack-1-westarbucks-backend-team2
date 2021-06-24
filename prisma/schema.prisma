@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -10,67 +7,67 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model drinks {
-  id               Int             @id @default(autoincrement())
-  name             String
-  category_id      Int 
-  description      String
-  is_new           Boolean
-  created_at       DateTime       @default(now())
-  images           images[]
-  drinks_allergies drinks_allergies[]
-  nutritions       nutritions?
-  categories       categories           @relation(fields: [category_id], references: [id])
-}
-
 model categories {
-  id                Int             @id @default(autoincrement())
-  name              String
-  description       String
-  created_at        DateTime       @default(now())
-  drinks            drinks[]
+  id         Int      @id @default(autoincrement())
+  name       String
+  created_at DateTime @default(now())
+  drinks     drinks[]
 }
 
-model images {
-  id                Int             @id @default(autoincrement())
-  image_url         String          @db.VarChar(3000)
-  image_id          Int
-  drinks            drinks         @relation(fields: [image_id], references: [id])
-  created_at        DateTime       @default(now())
+model drinks {
+  id              Int               @id @default(autoincrement())
+  korean_name     String
+  english_name    String?
+  is_new          Boolean
+  category_id     Int
+  created_at      DateTime          @default(now())
+  categories      categories        @relation(fields: [category_id], references: [id])
+  drink_images    drink_images[]
+  drink_allergies drink_allergies[]
+  nutritions      nutritions?
+}
+
+model drink_images {
+  id         Int      @id @default(autoincrement())
+  image_url  String   @db.VarChar(2000)
+  drink_id   Int
+  created_at DateTime @default(now())
+  drinks     drinks   @relation(fields: [drink_id], references: [id])
 }
 
 model allergies {
-  id                Int               @id @default(autoincrement())
-  allergy           String
-  created_at        DateTime?        @default(now())
-  drinks_allergies  drinks_allergies[]
+  id              Int               @id @default(autoincrement())
+  name            String
+  created_at      DateTime          @default(now())
+  drink_allergies drink_allergies[]
 }
 
-model drinks_allergies {
-  id                Int             @id @default(autoincrement())
-  drink_id          Int
-  allergy_id        Int
-  drinks            drinks           @relation(fields: [drink_id], references: [id])
-  allergies         allergies           @relation(fields: [allergy_id], references: [id])
-  created_at        DateTime?       @default(now())
+model drink_allergies {
+  id         Int       @id @default(autoincrement())
+  drink_id   Int
+  allergy_id Int
+  created_at DateTime  @default(now())
+  drinks     drinks    @relation(fields: [drink_id], references: [id])
+  allergies  allergies @relation(fields: [allergy_id], references: [id])
 }
 
 model nutritions {
-  id                Int             @id @default(autoincrement())
-  calories          String
-  sodium            String
-  fat               String
-  sugar             String
-  protein           String
-  caffein           String
-  drink_id          Int
-  drinks            drinks           @relation(fields: [drink_id], references: [id])
-  created_at        DateTime        @default(now())
+  id         Int      @id @default(autoincrement())
+  kcal       Decimal?
+  sodium     Decimal?
+  fat        Decimal?
+  protein    Decimal?
+  sugars     Decimal?
+  caffeine   Decimal?
+  drink_id   Int
+  created_at DateTime @default(now())
+  drinks     drinks   @relation(fields: [drink_id], references: [id])
 }
 
 model users {
-  id                Int             @id @default(autoincrement())
-  password          String
-  email             String
-  created_at        DateTime       @default(now())
+  id         Int      @id @default(autoincrement())
+  email      String
+  password   String
+  name       String
+  created_at DateTime @default(now())
 }
