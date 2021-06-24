@@ -11,84 +11,67 @@ generator client {
 }
 
 model drinks {
-  id                        Int       @id        @default(autoincrement())
-  categories_id             Int
-  kor_name                  String
-  eng_name                  String
-  is_new                    Boolean 
-  description               String
-  created_at                DateTime?            @default(now())
-        
-  categories                categories           @relation(fields: [categories_id], references: [id])
- 
-  @@index([categories_id], name: "categories_id")
-
-  drink_images              drink_images []
-  drink_allergies           drink_allergies []
-  nutrition                 nutrition []
+  id            Int   @id   @default(autoincrement())
+  categories_id Int
+  korean_name   String      @db.VarChar(3000)
+  english_name  String      @db.VarChar(3000)
+  is_new        Boolean 
+  description   String      @db.VarChar(3000)
+  created_at    DateTime    @default(now())
+  categories  categories  @relation(fields: [categories_id], references: [id])
+  drink_images     drink_images []
+  drink_allergies  drink_allergies []
+  nutrition  nutrition?
 }
 
 model categories {
-  id                        Int       @id        @default(autoincrement())
-  category_name             String
-  category_description      String
-  created_at                DateTime?            @default(now())
-
-  drinks                    drinks []
+  id                   Int   @id   @default(autoincrement())
+  category_name        String      @db.VarChar(3000)
+  category_description String      @db.VarChar(3000)
+  created_at           DateTime    @default(now())
+  drinks  drinks []
 }
 
 model drink_images {
-  id                        Int       @id        @default(autoincrement())
-  image_url                 String
-  drinks_id                 Int
-  drinks                    drinks               @relation(fields: [drinks_id], references: [id])
-
-  @@index([drinks_id], name: "drinks_id")
+  id           Int   @id   @default(autoincrement())
+  image_url    String      @db.VarChar(3000)
+  drinks_id    Int
+  drinks  drinks  @relation(fields: [drinks_id], references: [id])
 }
 
 model drink_allergies {
-  id                        Int       @id        @default(autoincrement())
-  drink_id                  Int
-  allergies_id              Int
-  created_at                DateTime?            @default(now())
-
-  drinks                    drinks               @relation(fields: [drink_id], references: [id]) 
-  allergies                 allergies            @relation(fields: [allergies_id], references: [id])
-
-  @@index([drink_id], name: "drink_id")
-  @@index([allergies_id], name: "allergies_id")
+  id           Int   @id   @default(autoincrement())
+  drink_id     Int
+  allergies_id Int
+  created_at   DateTime    @default(now())
+  drinks  drinks  @relation(fields: [drink_id], references: [id]) 
+  allergies  allergies  @relation(fields: [allergies_id], references: [id])
 }
 
 model allergies {
-  id                        Int       @id        @default(autoincrement())
-  allergy                   Int
-  created_at                DateTime?            @default(now())
-
+  id           Int   @id   @default(autoincrement())
+  allergy      Int
+  created_at   DateTime    @default(now())
   drink_allergies  drink_allergies []
 }
 
 model nutrition {
-  id                        Int       @id        @default(autoincrement())
-  drink_id                  Int                  
-  calories                  String
-  sodium                    String
-  fat                       String
-  sugar                     String
-  protein                   String
-  caffeine                  String
-  created_at                DateTime?            @default(now())
-
-  drinks                    drinks               @relation(fields: [drink_id], references: [id])
-
-  @@index([drink_id], name: "drink_id")
+  id            Int  @id   @default(autoincrement())
+  drink_id      Int        
+  calories      String     @db.VarChar(3000)
+  sodium        String     @db.VarChar(3000)
+  fat           String     @db.VarChar(3000)
+  sugar         String     @db.VarChar(3000)
+  protein       String     @db.VarChar(3000)
+  caffeine      String     @db.VarChar(3000)
+  created_at    DateTime   @default(now())
+  drinks  drinks  @relation(fields: [drink_id], references: [id])
 }
 
 model users {
-  id                        Int        @id       @default(autoincrement())
-  users_name                String
-  users_email               String     
-  users_password            String
-  created_at                DateTime?            @default(now())
-  updated_at                DateTime?            @updatedAt
-  deleted_at                DateTime?
+  id        Int   @id   @default(autoincrement())
+  name      String?
+  email     String  @unique
+  password  String
+  created_at  DateTime  @default(now())
 }
