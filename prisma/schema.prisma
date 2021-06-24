@@ -35,14 +35,14 @@ model images {
   id                Int             @id @default(autoincrement())
   image_url         String          @db.VarChar(3000)
   image_id          Int
-  drinks            drinks           @relation(fields: [image_id], references: [id])
+  drinks            drinks         @relation(fields: [image_id], references: [id])
   created_at        DateTime       @default(now())
 }
 
 model allergies {
   id                Int               @id @default(autoincrement())
   allergy           String
-  created_at        DateTime?       @default(now())
+  created_at        DateTime?        @default(now())
   drinks_allergies  drinks_allergies[]
 }
 
