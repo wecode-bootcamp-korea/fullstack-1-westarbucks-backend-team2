@@ -24,7 +24,7 @@ CREATE TABLE `categories` (
 -- CreateTable
 CREATE TABLE `images` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `image_url` VARCHAR(191) NOT NULL,
+    `image_url` VARCHAR(4000) NOT NULL,
     `image_id` INTEGER NOT NULL,
     `created_at` DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3),
 
