@@ -18,12 +18,12 @@
   "homepage": "https://github.com/wecode-bootcamp-korea/fullstack-1-westarbucks-backend-team2#readme",
   "devDependencies": {
     "dotenv": "^10.0.0",
+    "nodemon": "^2.0.7",
     "prisma": "^2.25.0"
   },
   "dependencies": {
     "@prisma/client": "^2.25.0",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "nodemon": "^2.0.7"
+    "express": "^4.17.1"
   }
 }
