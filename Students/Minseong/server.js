@@ -1,11 +1,11 @@
 import http from 'http'
 import express from 'express'
-// import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 // import { signUp } from './signUp'
 // import Users from './Users'
 // import Drinks from './Drinks'
 
-// const prisma = new PrismaClient()
+const prisma = new PrismaClient()
 
 const app = express()
 app.use(express.json())
