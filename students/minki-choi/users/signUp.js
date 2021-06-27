@@ -6,14 +6,12 @@ const signUp = async (req, res) => {
   try {
     const { email, password } = req.body
 
-    console.log('email: ', email, 'password: ', password)
-
     const user = await prisma.$queryRaw(`
       SELECT * FROM users WHERE email='${email}'
     `)
-    console.log('user확인: ', user)
+    
     if (user.length !== 0) {
-      res.status(400).json({ message: "ALREADY_EXISTING!!!!"})
+      res.status(400).json({ message: "ALREADY_EXISTING_USER_EMAIL" })
     }
 
     const createdUser = await prisma.$queryRaw(`

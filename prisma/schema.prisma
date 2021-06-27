@@ -21,7 +21,7 @@ model drinks {
   id              Int               @id @default(autoincrement())
   korean_name     String
   english_name    String?
-  is_new          Boolean
+  is_new          Boolean?
   category_id     Int
   created_at      DateTime          @default(now())
   categories      categories        @relation(fields: [category_id], references: [id])
