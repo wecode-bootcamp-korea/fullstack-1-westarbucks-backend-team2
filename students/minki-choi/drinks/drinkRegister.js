@@ -7,7 +7,7 @@ const drinkRegister = async (req, res) => {
     const { korean_name, english_name, category_id } = req.body
 
     const drinks = await prisma.$queryRaw(`
-      SELECT * FROM users WHERE korean_name='${korean_name}'
+      SELECT * FROM drinks WHERE korean_name='${korean_name}'
     `)
 
     if (drinks.length !== 0) {
