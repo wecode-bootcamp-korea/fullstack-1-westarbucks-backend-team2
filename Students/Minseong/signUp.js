@@ -1,12 +1,21 @@
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+
 const signUp = async(req, res) => {
     try {
-        const { email, name } = req.body
+        const { email, name, password } = req.body
 
-        console.log('email: ', email, 'name: ', name)
+        const user = await prisma.$queryRaw(`
+          SELECT * FROM users WHERE email='${email}'
+        `)
+
+        if (user.length !== 0) {
+            res.status(400).json({ Message: 'Already_existing_user' })
+        }
 
         const createdUser = await prisma.$queryRaw(`
-      INSERT INTO User(name, email) VALUES ('${name}', '${email}');
-    `)
+INSERT INTO users(name, email, password) VALUES ('${name}', '${email}','${password}');
+`)
 
         res.status(201).json({
             user: {
@@ -19,4 +28,4 @@ const signUp = async(req, res) => {
     }
 }
 
-export { signUp };
+export { signUp }

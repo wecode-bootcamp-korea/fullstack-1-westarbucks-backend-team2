@@ -1,35 +1,19 @@
 import http from 'http'
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
-// import { signUp } from './signUp'
-// import Users from './Users'
-// import Drinks from './Drinks'
+import { signUp } from './signUp'
+import { users } from './users'
+import { drinks } from './drinks'
+// import cors from 'cors'
 
 const prisma = new PrismaClient()
 
 const app = express()
 app.use(express.json())
-
-app.post('/users/sigUp', async(req, res) => { // 1
-    try {
-        const { email, name } = req.body
-
-        console.log('email: ', email, 'name: ', name)
-
-        const createdUser = await prisma.$queryRaw(`
-      INSERT INTO User(name, email) VALUES ('${name}', '${email}');
-    `) // 4
-
-        res.status(201).json({ // 5
-            user: {
-                id: createdUser.id,
-                email: createdUser.email,
-            }
-        })
-    } catch (err) { // 2
-        res.status(500).json({ message: err.message }) // 6
-    }
-})
+app.post('/users/signup', signUp)
+app.get('/users', users)
+app.get('/drinks', drinks)
+    // app.use(cors())
 
 const server = http.createServer(app) // express app 으로 서버를 만듭니다.
 
