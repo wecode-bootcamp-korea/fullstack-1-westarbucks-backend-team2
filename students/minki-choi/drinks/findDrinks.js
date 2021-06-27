@@ -4,8 +4,11 @@ const prisma = new PrismaClient();
 
 const findDrinks = async (req, res) => {
   try {
-    const users = await prisma.$queryRaw(`
-     SELECT id, korean_name, english_name, category_id FROM drinks;
+    const drinks = await prisma.$queryRaw(`
+     SELECT drinks.id, drinks.korean_name, drinks.english_name, categories.name
+     FROM categories
+     JOIN drinks
+     ON categories.id = drinks.category_id
      `)
 
      console.log('drinks: ', drinks)
