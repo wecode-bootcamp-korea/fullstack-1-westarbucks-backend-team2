@@ -1,32 +1,18 @@
 import http from 'http';
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import pkg from '@prisma/client';
+const { PrismaClient } = pkg;
+import { signUp } from './signUp'
+import { allUsers } from './allUsers'
+import cors from 'cors'
 
 const prisma = new PrismaClient();
 
 const app = express();
 app.use(express.json());
-
-app.post('/users/signup', async (req, res) => {
-  try {
-    const { email, password } = req.body
-
-    console.log('email: ', email, 'password: ', password)
-
-    const createdUser = await prisma.$queryRaw(`
-      INSERT INTO users(email, password) VALUES ('${email}, '${password}');
-    `)
-
-    res.status(201).json({
-      user: {
-        id: createdUser.id,
-        email: createdUser.email,
-      }
-    })
-  } catch (err) {
-    res.status(500).json({ message: err.message })
-  }
-})
+app.use(cors());
+app.post('/users/signup', signUp)
+app.get('/users', allUsers)
 
 const server = http.createServer(app)
 
