@@ -1,9 +1,9 @@
 {
   "name": "fullstack-1-westarbucks-backend-team2",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "server.js",
+  "scripts" : {
+    "start": "nodemon --exec babel-node server.js"
   },
   "repository": {
     "type": "git",
@@ -17,10 +17,13 @@
   },
   "homepage": "https://github.com/wecode-bootcamp-korea/fullstack-1-westarbucks-backend-team2#readme",
   "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.7",
     "dotenv": "^10.0.0",
     "prisma": "^2.25.0"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.14.7",
     "@prisma/client": "^2.25.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
