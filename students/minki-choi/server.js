@@ -1,35 +1,24 @@
 import http from 'http';
+import prisma from '../../prisma/index'
 import express from 'express';
-import pkg from '@prisma/client';
-const { PrismaClient } = pkg;
-import { signUp } from './users/signUp'
-import { allUsers } from './users/allUsers'
-import { findDrinks } from './drinks/findDrinks'
-import { drinkRegister } from './drinks/drinkRegister'
-import { allCategories } from './categories/allCategories'
-import { categoryRegister } from './categories/categoryRegister'
+import routes from './routes'
 import cors from 'cors'
-
-const prisma = new PrismaClient();
 
 const app = express();
 app.use(express.json());
+app.use(routes)
 app.use(cors());
-app.get('/users', allUsers)
-app.post('/users/signup', signUp)
-app.get('/drinks', findDrinks)
-app.post('/dirnks/register', drinkRegister)
-app.get('/categories', allCategories)
-app.post('/categories/register', categoryRegister)
 
 const server = http.createServer(app)
+const PORT = process.env.PORT
 
 const start = async () => {
   try {
-    server.listen(8000, () => console.log(`Server is listening on 8000`))
+    server.listen(PORT, () => console.log(`Server is listening on 8000`))
   } catch (err) {
-    console.error(err)
-    await prisma.$disconnect()
+    console.error(err);
+  } finally {
+    await prisma.$disconnect();
   }
 }
 

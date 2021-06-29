@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node students/minki-choi/server.js"
+    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node --delay 1500 students/minki-choi/server.js",
+    "predev": "kill -9 $(lsof -i :8000 | grep -i -E -o '\\s[0-9]+\\s') || true"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,13 @@
   },
   "homepage": "https://github.com/wecode-bootcamp-korea/fullstack-1-westarbucks-backend-team2#readme",
   "devDependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "prisma": "^2.25.0"
   },
   "dependencies": {
     "@prisma/client": "^2.25.0",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "esm": "^3.2.25",
