@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+// import { PrismaClient } from '@prisma/client'
+// const prisma = new PrismaClient()
 
 const signUp = async(req, res) => {
     try {
@@ -10,11 +10,12 @@ const signUp = async(req, res) => {
         `)
 
         if (user.length !== 0) {
-            res.status(400).json({ Message: 'Already_existing_user' })
+            res.status(400).json({ Message: 'ALEADY_EXISTING_USER' })
         }
 
         const createdUser = await prisma.$queryRaw(`
-INSERT INTO users(name, email, password) VALUES ('${name}', '${email}','${password}');
+INSERT INTO users(name, email, password) 
+VALUES ('${name}', '${email}','${password}');
 `)
 
         res.status(201).json({
