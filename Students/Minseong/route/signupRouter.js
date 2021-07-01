@@ -1,8 +1,8 @@
 import express from 'express';
 import { signupController } from '../controller'
 
-const singupRouter = express.Router();
+const router = express.Router();
 
-singupRouter.post('/users/signup', signupController.findSignup)
+router.post('/', signupController.findSignup)
 
-export default singupRouter
+export default router
