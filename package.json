@@ -2,7 +2,7 @@
   "name": "fullstack-1-westarbucks-backend-team2",
   "version": "1.0.0",
   "main": "server.js",
-  "scripts" : {
+  "scripts": {
     "start": "nodemon --exec babel-node server.js"
   },
   "repository": {
