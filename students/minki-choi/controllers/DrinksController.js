@@ -12,22 +12,17 @@ const findDrinks = async (req, res) => {
 
 const registerDrink = async (req, res) => {
   try {
-    const drinks = await DrinksService.registerDrink()
-
+    const { korean_name, english_name, category_id } = req.body;
+    const registeredDrink = await DrinksService.registerDrink(req);
+    
     if (drinks.length !== 0) {
       res.status(400).json({ message: "ALREADY_EXISTING_DRINK" })
     }
 
-    const registeredDrink = await DrinksService.registerDrink()
-
     res.status(201).json({
-      drink: {
-        id : registeredDrink.id,
-        korean_name : registeredDrink.korean_name,
-        english_name : registeredDrink.english_name,
-        category_id : registeredDrink.category_id
+      korean_name, english_name, category_id
       }
-    })
+    )
   } catch (err) {
     res.status(500).json({ message: err.message })
   }

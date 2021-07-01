@@ -11,13 +11,10 @@ const findCategories = async (req, res) => {
 
 const registerCategory = async (req, res) => {
   try {
-    const categories = await CategoriesService.registerCategory()
+    const { name } = req.body
+    const categories = await CategoriesService.registerCategory(req)
 
-    if (categories.length !== 0) {
-      res.status(400).json({ message: "ALREADY_EXISTING_CATEGORY" })
-    }
-
-    const registeredCategory = await CategoriesService.registerCategory()
+    const registeredCategory = await CategoriesService.registerCategory(req)
 
 
     res.status(200).json({ 

@@ -14,7 +14,7 @@ const PORT = process.env.PORT
 
 const start = async () => {
   try {
-    server.listen(PORT, () => console.log(`Server is listening on 8000`))
+    server.listen(PORT, () => console.log(`Server is listening on ${PORT}`))
   } catch (err) {
     console.error(err);
   } finally {

@@ -1,8 +1,8 @@
 import { UsersService } from '../services'
 
-const allUsers = async (req, res) => {
+const veiwAllUsers = async (req, res) => {
   try {
-    const users = await UsersService.allUsers(req)
+    const users = await UsersService.veiwAllUsers();
 
     res.status(200).json({ users })
   } catch (err) {
@@ -12,25 +12,26 @@ const allUsers = async (req, res) => {
 
 const signUp = async (req, res) => {
   try {
-    const user = await signupService.signUp(req)
-
-    if (user.length !== 0) {
-      res.status(400).json({ message: "ALREADY_EXISTING_USER_EMAIL" })
-    }
-
-    const createdUser = await signupService.signUp()
-
-    res.status(201).json({
-      user: {
-        id: createdUser.id,
-        email: createdUser.email,
-      }
-    })
+    const { email, password } = req.body
+    const user = await UsersService.signUp(req)
+    
+    res.status(201).json({ email, password });
   } catch (err) {
-    res.status(500).json({ message: err.message })
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const userLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const loginUsers = await UsersService.userLogin(req)
+
+    res.status(201).json({ email, password })
+  } catch (err) {
+    res.status(401).json({ message: err.message })
   }
 }
 
-export default { allUsers, signUp }
+export default { veiwAllUsers, signUp, userLogin }
 
 

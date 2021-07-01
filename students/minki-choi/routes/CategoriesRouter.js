@@ -3,7 +3,7 @@ import { CategoriesController } from '../controllers'
 
 const router = express.Router();
 
-router.get('/', CategoriesController.findCategories)
-router.post('/', CategoriesController.registerCategory)
+router.get('', CategoriesController.findCategories)
+router.post('/register', CategoriesController.registerCategory)
 
 export default router

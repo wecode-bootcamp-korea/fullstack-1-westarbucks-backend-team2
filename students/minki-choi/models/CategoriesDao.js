@@ -2,13 +2,12 @@ import prisma from '../../../prisma'
 
 const findCategories = async () => {
   const categories = await prisma.$queryRaw(`
-  SELECT id, name FROM categiries;
+  SELECT id, name FROM categories;
   `)
   return categories;
 }
 
 const registerCategory = async () => {
-  const { name } = req.body
   
   const categories = await prisma.$queryRaw(`
   SELECT * FROM categories WHERE name='${name}'

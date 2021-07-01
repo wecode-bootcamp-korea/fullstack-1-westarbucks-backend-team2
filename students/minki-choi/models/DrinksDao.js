@@ -3,7 +3,17 @@ import prisma from '../../../prisma'
 const findDrinks = async () => {
   const drinks = await prisma.$queryRaw(`
     SELECT 
-      drinks.id, drinks.korean_name, drinks.english_name, categories.name, nutritions.kcal, nutritions.sodium, nutritions.fat, nutritions.protein, nutritions.sugars, nutritions.caffeine, allergies.name
+      drinks.id,
+      drinks.korean_name,
+      drinks.english_name,
+      categories.name,
+      nutritions.kcal,
+      nutritions.sodium,
+      nutritions.fat,
+      nutritions.protein,
+      nutritions.sugars,
+      nutritions.caffeine,
+      allergies.name
     FROM categories
     JOIN drinks
       ON categories.id = drinks.category_id
@@ -18,8 +28,6 @@ const findDrinks = async () => {
 };
 
 const registerDrink = async () => {
-  const { korean_name, english_name, category_id } = req.body
-
   const drinks = await prisma.$queryRaw(`
     SELECT * FROM drinks WHERE korean_name='${korean_name}'
   `)
