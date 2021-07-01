@@ -1,8 +1,8 @@
-import signupDAO from '../model'
+import { signupDAO } from '../model'
 
-const findSignup = async() => {
+const findSignup = async(req) => {
     console.log('Im in service')
-    return await signupDAO.findSignup()
+    return await signupDAO.findSignup(req)
 }
 
 export default { findSignup }

@@ -1,4 +1,4 @@
-import signupService from '../service'
+import { signupService } from '../service'
 
 const findSignup = async(req, res) => {
     try {
