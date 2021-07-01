@@ -1,18 +1,6 @@
 import http from 'http'
-import express from 'express'
-import { signUp } from './signUp.js'
-import { allUsers } from './allUsers.js'
-import { drinks } from './drinks.js'
-
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
-
-const app = express()
-app.use(express.json())
-
-app.post('/users/signup', signUp)
-app.get('/users', allUsers)
-app.get('/drinks', drinks)
+import app from './app'
+import prisma from './prisma/index.js'
 
 const server = http.createServer(app)
 
@@ -23,6 +11,6 @@ const start = async () => {
     console.error(err)
     await prisma.$disconnect()
   }
-}
+};
 
-start()
+start();

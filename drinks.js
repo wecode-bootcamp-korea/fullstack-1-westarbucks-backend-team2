@@ -13,7 +13,7 @@ const drinks = async(req, res)=> {
       JOIN categories
       ON categories.id = drinks.category_id
     `);
-    res.status(201).json({ drinks })
+    res.status(200).json({ drinks })
   } catch (err) {
     res.status(500).json({ message: err })
   }
