@@ -2,7 +2,7 @@
 CREATE TABLE `categories` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `created_at` DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -14,7 +14,7 @@ CREATE TABLE `drinks` (
     `english_name` VARCHAR(191),
     `is_new` BOOLEAN NOT NULL,
     `category_id` INTEGER NOT NULL,
-    `created_at` DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -22,9 +22,9 @@ CREATE TABLE `drinks` (
 -- CreateTable
 CREATE TABLE `drink_images` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `image_url` VARCHAR(191) NOT NULL,
+    `image_url` VARCHAR(2000) NOT NULL,
     `drink_id` INTEGER NOT NULL,
-    `created_at` DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -33,7 +33,7 @@ CREATE TABLE `drink_images` (
 CREATE TABLE `allergies` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `created_at` DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -43,7 +43,7 @@ CREATE TABLE `drink_allergies` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `drink_id` INTEGER NOT NULL,
     `allergy_id` INTEGER NOT NULL,
-    `created_at` DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -51,15 +51,16 @@ CREATE TABLE `drink_allergies` (
 -- CreateTable
 CREATE TABLE `nutritions` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `kcal` VARCHAR(191) NOT NULL,
-    `sodium` VARCHAR(191) NOT NULL,
-    `fat` VARCHAR(191) NOT NULL,
-    `protein` VARCHAR(191) NOT NULL,
-    `sugars` VARCHAR(191) NOT NULL,
-    `caffeine` VARCHAR(191) NOT NULL,
+    `kcal` DECIMAL(65, 30),
+    `sodium` DECIMAL(65, 30),
+    `fat` DECIMAL(65, 30),
+    `protein` DECIMAL(65, 30),
+    `sugars` DECIMAL(65, 30),
+    `caffeine` DECIMAL(65, 30),
     `drink_id` INTEGER NOT NULL,
-    `created_at` DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
+    UNIQUE INDEX `nutritions_drink_id_unique`(`drink_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -69,7 +70,7 @@ CREATE TABLE `users` (
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `created_at` DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
