@@ -5,7 +5,6 @@ import usersRouter from './usersRouter'
 import drinksRouter from './drinksRouter'
 import singupRouter from './signupRouter'
 
-console.log('Im in router')
 
 router.use('/users', usersRouter);
 router.use('/drinks', drinksRouter);
