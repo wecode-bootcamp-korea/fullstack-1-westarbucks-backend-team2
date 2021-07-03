@@ -1,19 +1,19 @@
 import prisma from '../prisma/index'
 
-const findSignp = async() => {
-    const { email, password } = req.body
-
+const signup = async(email, password, name) => {
     const user = await prisma.$queryRaw(`
     SELECT * FROM users WHERE email='${email}'
   `)
     const createdUser = await prisma.$queryRaw(`
     INSERT INTO 
-      users(email, password) 
+      users(email, password, name) 
     VALUES 
-      ('${email}', '${password}');
+      ('${email}', '${password}', '${name}');
   `)
 
-    return user, createdUser;
+    return { user, createdUser };
 };
 
-export default { findSignp }
+console.log('findsingup:', signup)
+
+export default { signup }

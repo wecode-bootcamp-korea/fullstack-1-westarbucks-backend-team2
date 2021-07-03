@@ -1,25 +1,18 @@
 import { signupService } from '../service'
 
-const findSignup = async(req, res) => {
+const signup = async(req, res) => {
     try {
-        const user = await signupService.findSignup(req)
-
-        if (user.length !== 0) {
-            res.status(400).json({ message: "ALREADY_EXISTING_USER_EMAIL" })
-        }
-
-        const createdUser = await signupService.findSignup()
-
-        res.status(201).json({
-            user: {
-                id: createdUser.id,
-                email: createdUser.email,
+        const { email, password, name } = req.body
+        const users = await signupService.signup(email, password, name)
+        res.status(200).json({
+            users: {
+                id: signup.id,
+                email: signup.email
             }
         })
     } catch (err) {
-        res.status(500).json({ message: err.message })
+        console.log(err)
     }
 }
 
-
-export default { findSignup }
+export default { signup }
