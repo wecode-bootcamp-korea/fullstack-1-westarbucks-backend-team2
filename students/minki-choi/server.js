@@ -1,5 +1,5 @@
 import http from 'http';
-import prisma from '../../prisma/index'
+import prisma from './prisma/index'
 import express from 'express';
 import routes from './routes'
 import cors from 'cors'

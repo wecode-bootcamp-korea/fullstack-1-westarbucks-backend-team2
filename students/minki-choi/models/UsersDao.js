@@ -1,55 +1,49 @@
-import prisma from 'prisma';
+import prisma from '../prisma';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const veiwAllUsers = async () => {
-  const users = await prisma.$queryRaw(`
-  SELECT id, email, password FROM users;
+const viewAllUsers = async () => {
+  return await prisma.$queryRaw(`
+    SELECT id, email, password FROM users;
   `)
-  return users;
 };
+  
+  // const saltRounds = 10;
 
-console.log('durldi')
+  // const salt = await bcrypt.genSaltSync(saltRounds);
+  // const hashedPassword = await bcrypt.hashSync(password, salt);
 
-const signUp = async () => {
-  const { email, password } = req.body
-  const saltRounds = 10;
-
-  const salt = await bcrypt.genSaltSync(saltRounds);
-  const hashedPassword = await bcrypt.hashSync(password, salt);
-
-  const createdUser = await prisma.$queryRaw(`
+const createdUser = async (email, password) => {
+  return await prisma.$queryRaw(`
     INSERT INTO 
       users(email, password) 
     VALUES 
-      ('${email}', '${hashedPassword}');
-  `)
-  
-  return user, createdUser, isPasswordVerifide;
-};
-
-const userLogin = async() => {
-  const userExists = await prisma.users.findUnique({ where: { email } });
-  
-  if (!userExists) {
-    const err = new Error('USER_DOES_NOT_EXISTS.');
-    err.statusCode = 404;
-    throw err;
-  }
-  const { email: id, password: hashedPassword } = userExists;
-
-  const isPasswordVerifide = bcrypt.compareSync(password, hashedPassword);
-
-  if (!isPasswordVerifide) {
-    const error = new Error('PASSWORD_DOES_NOT_MATCH');
-    error.statusCode = 404;
-    throw error;
-  }
-
-  const token = jwt.sign({ id }, 'secret_key_minki');
-  console.log('token: ', token);
-
-  return token;
+    ('${email}', '${password}');
+  `);
 }
 
-export default { veiwAllUsers, signUp, userLogin }
+const verifyEmail = async (email) => {
+  return await prisma.$queryRaw(`
+    SELECT email FROM users where email=('${email}')
+  `);
+}
+
+const getEmail = async (email) => {
+  return await prisma.$queryRaw(`
+    SELECT email, password FROM users WHERE email='${email}'
+  `)
+}
+
+const getPassword = async (password) => {
+  return await prisma.$queryRaw(`
+    SELECT password FROM users WHERE password='${password}'
+  `)
+}
+
+export default {
+  viewAllUsers,
+  createdUser,
+  verifyEmail,
+  getEmail,
+  getPassword
+ }

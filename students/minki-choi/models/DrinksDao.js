@@ -1,4 +1,4 @@
-import prisma from '../../../prisma'
+import prisma from '../prisma'
 
 const findDrinks = async () => {
   const drinks = await prisma.$queryRaw(`

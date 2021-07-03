@@ -12,7 +12,6 @@ const findCategories = async (req, res) => {
 const registerCategory = async (req, res) => {
   try {
     const { name } = req.body
-    const categories = await CategoriesService.registerCategory(req)
 
     const registeredCategory = await CategoriesService.registerCategory(req)
 

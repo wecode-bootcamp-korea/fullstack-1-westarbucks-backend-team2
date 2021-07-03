@@ -1,8 +1,8 @@
 import { UsersService } from '../services'
 
-const veiwAllUsers = async (req, res) => {
+const viewAllUsers = async (req, res) => {
   try {
-    const users = await UsersService.veiwAllUsers();
+    const users = await UsersService.viewAllUsers();
 
     res.status(200).json({ users })
   } catch (err) {
@@ -13,7 +13,7 @@ const veiwAllUsers = async (req, res) => {
 const signUp = async (req, res) => {
   try {
     const { email, password } = req.body
-    const user = await UsersService.signUp(req)
+    await UsersService.signUp(req)
     
     res.status(201).json({ email, password });
   } catch (err) {
@@ -24,14 +24,14 @@ const signUp = async (req, res) => {
 const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const loginUsers = await UsersService.userLogin(req)
+    const token = await UsersService.userLogin(email, password);
 
-    res.status(201).json({ email, password })
+    res.status(201).json({ message: 'LOGIN_SUCCESS!', token })
   } catch (err) {
-    res.status(401).json({ message: err.message })
+    res.status(500).json({ message: err.message })
   }
-}
+};
 
-export default { veiwAllUsers, signUp, userLogin }
+export default { viewAllUsers, signUp, userLogin }
 
 
